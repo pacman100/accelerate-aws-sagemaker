@@ -8,7 +8,7 @@ accelerate launch --config_file accelerate_config.yaml run_seq2seq_no_trainer.py
     --n_val_batch_generations 5 \
     --n_train 10000 \
     --n_val 1000 \
-    --pad_to_max_length \
+    --pad_to_max_length True\
     --num_beams 10 \
     --model_name_or_path "facebook/blenderbot-400M-distill" \
     --per_device_train_batch_size 100 \
