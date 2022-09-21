@@ -1,4 +1,4 @@
-time accelerate launch run_seq2seq_no_trainer.py \
+accelerate launch --config_file accelerate_config.yaml run_seq2seq_no_trainer.py \
     --dataset_name "smangrul/MuDoConv" \
     --max_source_length 128 \
     --source_prefix "chatbot: " \
