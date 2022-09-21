@@ -99,7 +99,7 @@ def training_function(config, args):
     validation_dataset = load_from_disk(args.validation_dir)
 
     accelerator.print(f" loaded train_dataset length is: {len(train_dataset)}")
-    accelerator.print(f" loaded test_dataset length is: {len(test_dataset)}")
+    accelerator.print(f" loaded test_dataset length is: {len(validation_dataset)}")
 
     # Instantiate dataloaders.
     train_dataloader = DataLoader(train_dataset, shuffle=True, collate_fn=collate_fn, batch_size=batch_size)
