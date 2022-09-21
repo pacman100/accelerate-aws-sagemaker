@@ -11,8 +11,8 @@ accelerate launch --config_file accelerate_config.yaml run_seq2seq_no_trainer.py
     --pad_to_max_length True\
     --num_beams 10 \
     --model_name_or_path "facebook/blenderbot-400M-distill" \
-    --per_device_train_batch_size 100 \
-    --per_device_eval_batch_size 50 \
+    --per_device_train_batch_size 16 \
+    --per_device_eval_batch_size 16 \
     --learning_rate 1e-6 \
     --weight_decay 0.0 \
     --num_train_epochs 1 \

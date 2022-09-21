@@ -63,7 +63,31 @@ use_cpu: false
 cd src/text-classification
 bash launch.sh
 ```
-Output:
+The contents of launch.sh
+```bash
+accelerate launch  --config_file accelerate_config.yaml train_using_s3_data.py \
+    --mixed_precision "fp16"
+```
+Output logs:
+```bash
+...
+
+[1,mpirank:0,algo-1]<stdout>:algo-1:79:1300 [0] NCCL INFO Launch mode Parallel
+[1,mpirank:0,algo-1]<stderr>:INFO:root:Reducer buckets have been rebuilt in this iteration.
+[1,mpirank:3,algo-1]<stderr>:INFO:root:Reducer buckets have been rebuilt in this iteration.
+[1,mpirank:1,algo-1]<stderr>:INFO:root:Reducer buckets have been rebuilt in this iteration.
+[1,mpirank:2,algo-1]<stderr>:INFO:root:Reducer buckets have been rebuilt in this iteration.
+[1,mpirank:6,algo-1]<stderr>:INFO:root:Reducer buckets have been rebuilt in this iteration.
+[1,mpirank:5,algo-1]<stderr>:INFO:root:Reducer buckets have been rebuilt in this iteration.
+[1,mpirank:7,algo-1]<stderr>:INFO:root:Reducer buckets have been rebuilt in this iteration.
+[1,mpirank:4,algo-1]<stderr>:INFO:root:Reducer buckets have been rebuilt in this iteration.
+[1,mpirank:0,algo-1]<stdout>:epoch 0: {'accuracy': 0.6838235294117647, 'f1': 0.8122270742358079}
+[1,mpirank:0,algo-1]<stdout>:epoch 1: {'accuracy': 0.7205882352941176, 'f1': 0.8256880733944955}
+[1,mpirank:0,algo-1]<stdout>:epoch 2: {'accuracy': 0.75, 'f1': 0.838095238095238}
+2022-09-21 13:21:05,187 sagemaker-training-toolkit INFO     Waiting for the process to finish and give a return code.
+2022-09-21 13:21:05,188 sagemaker-training-toolkit INFO     Done waiting for a return code. Received 0 from exiting process.
+2022-09-21 13:21:05,188 sagemaker-training-toolkit INFO     Reporting training SUCCESS
+```
 
 
 10. Running `seq2seq` example using s3 datasets (from the root directory):
@@ -71,7 +95,34 @@ Output:
 cd src/seq2seq
 bash launch.sh
 ```
-Output:
+The contents of launch.sh
+```bash
+accelerate launch --config_file accelerate_config.yaml run_seq2seq_no_trainer.py \
+    --dataset_name "smangrul/MuDoConv" \
+    --max_source_length 128 \
+    --source_prefix "chatbot: " \
+    --max_target_length 64 \
+    --val_max_target_length 64 \
+    --val_min_target_length 20 \
+    --n_val_batch_generations 5 \
+    --n_train 10000 \
+    --n_val 1000 \
+    --pad_to_max_length True\
+    --num_beams 10 \
+    --model_name_or_path "facebook/blenderbot-400M-distill" \
+    --per_device_train_batch_size 16 \
+    --per_device_eval_batch_size 16 \
+    --learning_rate 1e-6 \
+    --weight_decay 0.0 \
+    --num_train_epochs 1 \
+    --gradient_accumulation_steps 1 \
+    --num_warmup_steps 100 \
+    --output_dir "/opt/ml/model" \
+    --seed 25 \
+    --logging_steps 100 \
+    --report_name "blenderbot_400M_finetuning"
+```
+Output logs:
 
 
 
