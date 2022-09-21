@@ -854,7 +854,7 @@ def main():
                         if accelerator.is_main_process:
                             ckpt_path = os.path.join(args.output_dir, str(epoch))
                             os.makedirs(ckpt_path, exist_ok=True)
-                            accelerator.save(model.state_dict(), os.path.join(ckpt_path, "model.pt"))
+                            accelerator.save(accelerator.get_state_dict(model), os.path.join(ckpt_path, "model.pt"))
 
             # return
             if completed_steps >= args.max_train_steps:
@@ -872,7 +872,7 @@ def main():
             if accelerator.is_main_process:
                 ckpt_path = os.path.join(args.output_dir, str(epoch))
                 os.makedirs(ckpt_path, exist_ok=True)
-                accelerator.save(model.state_dict(), os.path.join(ckpt_path, "model.pt"))
+                accelerator.save(accelerator.get_state_dict(model), os.path.join(ckpt_path, "model.pt"))
         start_time = time()
         bleu_score = evaluate(args, model, metric, tokenizer, eval_dataloader, accelerator, config.max_length)
         end_time = time()

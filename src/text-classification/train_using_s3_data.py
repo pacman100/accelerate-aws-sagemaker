@@ -226,7 +226,7 @@ def training_function(config, args):
                 output_dir = os.path.join(args.output_dir, output_dir)
             accelerator.save_state(output_dir)
 
-    accelerator.save(model, os.path.join(args.output_dir, "model.pt"))
+    accelerator.save(accelerator.get_state_dict(model), os.path.join(args.output_dir, "model.pt"))
     if args.with_tracking:
         accelerator.end_training()
 
