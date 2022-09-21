@@ -195,7 +195,8 @@ def parse_args():
     )
     parser.add_argument(
         "--pad_to_max_length",
-        action="store_true",
+        type=bool,
+        default=False,
         help="If passed, pad all samples to `max_length`. Otherwise, dynamic padding is used.",
     )
     parser.add_argument(
@@ -230,7 +231,8 @@ def parse_args():
     )
     parser.add_argument(
         "--use_slow_tokenizer",
-        action="store_true",
+        type=bool,
+        default=False,
         help="If passed, will use a slow tokenizer (not backed by the 🤗 Tokenizers library).",
     )
     parser.add_argument(
@@ -284,7 +286,7 @@ def parse_args():
         help="Model type to use if training from scratch.",
         choices=MODEL_TYPES,
     )
-    parser.add_argument("--push_to_hub", action="store_true", help="Whether or not to push the model to the Hub.")
+    parser.add_argument("--push_to_hub", type=bool, default=False, help="Whether or not to push the model to the Hub.")
     parser.add_argument(
         "--hub_model_id", type=str, help="The name of the repository to keep in sync with the local `output_dir`."
     )
@@ -305,7 +307,8 @@ def parse_args():
     # Whether to load the best model at the end of training
     parser.add_argument(
         "--load_best_model",
-        action="store_true",
+        type=bool,
+        default=False,
         help="Whether to load the best model at the end of training",
     )
     # New Code #
@@ -317,7 +320,8 @@ def parse_args():
     )
     parser.add_argument(
         "--with_tracking",
-        action="store_true",
+        type=bool,
+        default=False,
         help="Whether to enable experiment trackers for logging.",
     )
     parser.add_argument(
