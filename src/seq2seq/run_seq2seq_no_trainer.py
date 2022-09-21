@@ -51,7 +51,6 @@ from transformers import (
     SchedulerType,
     get_scheduler,
 )
-import bitsandbytes as bnb
 from transformers.utils import get_full_repo_name, is_offline_mode
 from transformers.utils.versions import require_version
 
